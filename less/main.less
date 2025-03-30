@@ -1,3 +1,65 @@
+@import url('./reset');
+
+:root {
+	--gray-500: #a0aec0;
+	--gray-700: #4a5568;
+	--gray-900: #1a202c;
+}
+
 body {
-  background-color: lightblue;
+	margin: 0;
+	background-color: #edf2f7;
+	color: var(--gray-900);
+	font-family: 'Archivo', Arial, sans-serif;
+}
+
+.app {
+	padding: 60px;
+}
+
+.header {
+	margin-bottom: 40px;
+}
+
+.head-title {
+	font-size: 56px;
+	font-weight: 600;
+}
+
+.head-caption {
+	font-size: 24px;
+	line-height: 1.5em;
+	margin-top: 0.5em;
+	color: var(--gray-700);
+}
+
+.footer {
+	color: var(--gray-500);
+	font-size: 14px;
+	font-weight: 500;
+	margin-top: 40px;
+}
+
+.list {
+	display: flex;
+	gap: 40px;
+}
+
+.item {
+	flex: 1;
+	background: white;
+	border-radius: 28px;
+	padding: 42px;
+}
+
+.item-title {
+	font-size: 28px;
+	font-weight: 700;
+}
+
+.item-location {
+	color: var(--gray-700);
+	letter-spacing: -0.017em;
+	font-size: 17px;
+	line-height: 1.76em;
 }
