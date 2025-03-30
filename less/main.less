@@ -1,6 +1,10 @@
 @import url('./reset');
 
+@gray200: #edf2f7;
+@gray200Dark: darken(#edf2f7, 5%);
+
 :root {
+	--gray-200: @gray200;
 	--gray-500: #a0aec0;
 	--gray-700: #4a5568;
 	--gray-900: #1a202c;
@@ -8,7 +12,7 @@
 
 body {
 	margin: 0;
-	background-color: #edf2f7;
+	background-color: var(--gray-200);
 	color: var(--gray-900);
 	font-family: 'Archivo', Arial, sans-serif;
 }
@@ -38,6 +42,14 @@ body {
 	font-size: 14px;
 	font-weight: 500;
 	margin-top: 40px;
+
+	a {
+		transition: color 0.15s;
+	}
+
+	a:hover {
+		color: var(--gray-700);
+	}
 }
 
 .list {
@@ -45,11 +57,42 @@ body {
 	gap: 40px;
 }
 
+@keyframes loading-gradient {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+
 .item {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	flex: 1;
 	background: white;
 	border-radius: 28px;
 	padding: 42px;
+
+	&.loading {
+		.item-contents p {
+			color: transparent;
+			background: linear-gradient(90deg, @gray200, @gray200Dark, @gray200);
+			background-size: 200% 100%;
+			animation: loading-gradient 1s linear infinite;
+			border-radius: 28px;
+		}
+	}
+}
+
+.item-contents {
+	flex: 1;
+
+	p {
+		width: fit-content;
+		transition: background 0.5s, color 0.5s;
+	}
 }
 
 .item-title {
@@ -58,8 +101,59 @@ body {
 }
 
 .item-location {
-	color: var(--gray-700);
+	color: var(--gray-500);
 	letter-spacing: -0.017em;
 	font-size: 17px;
 	line-height: 1.76em;
+}
+
+.item-row {
+	display: flex;
+	align-items: center;
+	// gap: 15px;
+	// flex-direction: column;
+	// margin-block: 15px;
+}
+
+.item-icon {
+	display: block;
+	width: 100px;
+	height: 100px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	// order: 1;
+}
+
+.item-temperature {
+	display: flex;
+	align-items: flex-start;
+	font-size: 60px;
+	line-height: 1em;
+	font-weight: 300;
+	// order: 2;
+
+	span {
+		display: block;
+	}
+
+	sup {
+		display: block;
+		font-size: 50%;
+		position: relative;
+		top: -0.35em;
+	}
+}
+
+.item-data {
+	font-size: 18px;
+	color: var(--gray-700);
+	margin-top: 0.2em;
+}
+
+.item-footer {
+	color: var(--gray-500);
+	font-size: 14px;
+	font-weight: 500;
+	margin-top: 1.5em;
 }
