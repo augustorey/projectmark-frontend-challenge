@@ -1,9 +1,4 @@
 const isDev = process.env.NODE_ENV === 'development';
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require('./webpack.config.js');
-const compiler = webpack(config);
 const path = require('path');
 const createError = require('http-errors');
 const express = require('express');
@@ -18,6 +13,12 @@ app.use(cookieParser());
 
 //Development Webpack
 if (isDev) {
+
+	const webpack = require('webpack');
+	const webpackDevMiddleware = require('webpack-dev-middleware');
+	const webpackHotMiddleware = require('webpack-hot-middleware');
+	const config = require('./webpack.config.dev.js');
+	const compiler = webpack(config);
 
 	app.use(webpackDevMiddleware(compiler, {
 		publicPath: config.output.publicPath,

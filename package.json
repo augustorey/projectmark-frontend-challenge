@@ -5,7 +5,7 @@
 	"scripts": {
 		"start": "cross-env NODE_ENV=production node ./bin/www",
 		"dev": "cross-env NODE_ENV=development node ./bin/www",
-		"build": "webpack --mode production"
+		"build": "webpack --config webpack.config.prod.js"
 	},
 	"dependencies": {
 		"cookie-parser": "~1.4.4",
