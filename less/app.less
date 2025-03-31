@@ -1,0 +1,47 @@
+.app-container {
+	padding: .clamp(20, 60)[@a];
+}
+
+.header {
+	margin-bottom: .clamp(20, 40)[@a];
+}
+
+.head-title {
+	font-size: .clamp(36, 56)[@a];
+	font-weight: 600;
+}
+
+.head-caption {
+	font-size: .clamp(18, 24)[@a];
+	line-height: 1.5em;
+	margin-top: 0.5em;
+	color: var(--gray-700);
+}
+
+.footer {
+	color: var(--gray-500);
+	font-size: 14px;
+	font-weight: 500;
+	margin-top: .clamp(20, 40)[@a];
+
+	a {
+		transition: color 0.15s;
+	}
+
+	a:hover {
+		color: var(--gray-700);
+	}
+}
+
+.list {
+	display: flex;
+	gap: .clamp(15, 40)[@a];
+}
+
+@media (max-width: 1024px) {
+
+	.list {
+		flex-direction: column;
+	}
+
+}

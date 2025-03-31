@@ -7,32 +7,31 @@ export default class City extends React.Component {
 		super(props);
 
 		this.state = {
-			loading: true,
+			loading: true,//Initial loading
 		};
-
-		console.log('City.');
 
 	}
 	componentDidMount() {
-
+			
 		this.fetch();
+
+		//Update every 10 minutes
+		this.timer = setInterval(() => {
+
+			this.setState({refreshing: true}, () => this.fetch());
+
+		}, 10 * 60 * 1000);
 
 	}
 	componentWillUnmount() {
 
-		console.log('Will Unmount.');
-
 		//Abort Requests
 		if (this.controller) this.controller.abort();
 
+		clearInterval(this.timer);
+
 	}
 	fetch() {
-
-		// return;//REMOVE
-
-		console.log('Fetch.');
-
-		this.setState({refreshing: true});
 
 		const params = {
 			lat: this.props.lat,
@@ -45,22 +44,23 @@ export default class City extends React.Component {
 		const url = 'https://api.openweathermap.org/data/2.5/weather?' + qs;
 		const {signal} = this.controller = new AbortController();
 
+		//Fetch OpenWeatherMap
 		fetch(url, {signal})
 		.then((res) => res.json())
 		.then((data) => {
 
-			console.log('Response.', data);
-
-			const capitalize = (str) => {
-				if (!str) return str;
-				return str.charAt(0).toUpperCase() + str.slice(1);
-			};
+			const capitalize = (str) => !str ? str : str.charAt(0).toUpperCase() + str.slice(1);
 
 			this.setState({
 				loading: false,
 				refreshing: false,
 				lastUpdate: new Date(),
 				temperature: data.main.temp,
+				level: (() => {
+					if (data.main.temp <= 5) return 'cold';
+					if (data.main.temp > 25) return 'hot';
+					return 'mid';
+				})(),
 				pressure: data.main.pressure,
 				humidity: data.main.humidity,
 				feelsLike: data.main.feels_like,
@@ -81,7 +81,7 @@ export default class City extends React.Component {
 	render() {
 
 		return (
-			<article className={['item', this.state.loading && 'loading'].filter(Boolean).join(' ')}>
+			<article className={['item', this.state.loading && 'loading', 'temp-' + this.state.level].filter(Boolean).join(' ')}>
 
 				<h2 className="item-title">{this.props.title}</h2>
 
@@ -89,14 +89,16 @@ export default class City extends React.Component {
 
 				<div className="item-contents">
 
-					<div className="item-row">
+					<div className="item-row" title={this.state.description}>
 
 						<p className="item-temperature">
-							<span>{this.state.temperature || '00.00'}</span>
+							<span>{parseInt(this.state.temperature) || '00'}</span>
 							<sup>°C</sup>
 						</p>
 						
-						<figure className="item-icon" title={this.state.description} style={!this.state.icon ? null : {backgroundImage: 'url("https://rodrigokamada.github.io/openweathermap/images/' + this.state.icon + '_t@4x.png")'}} />
+						<div className="item-icon-wrapper">
+							<figure className="item-icon" style={!this.state.icon ? null : {backgroundImage: 'url("https://rodrigokamada.github.io/openweathermap/images/' + this.state.icon + '_t@4x.png")'}} />
+						</div>
 
 					</div>
 

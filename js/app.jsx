@@ -1,4 +1,3 @@
-const apiKey = 'c238255423dfd404a720564f3cac2160';
 import React from 'react';
 import City from './city';
 
@@ -36,16 +35,16 @@ export default class App extends React.Component {
 			],
 		};
 
-		console.log('App.');
+		// console.log('App.');
 
 	}
 	render() {
 
 		return (
-			<div className="app">
+			<div className="app-container">
 
 				<header className="header">
-					<h1 className="head-title">Weather@ProjectMark</h1>
+					<h1 className="head-title">Weather</h1>
 					<p className="head-caption">Check the weather conditions for some cities relevant to the ProjectMark team.</p>
 				</header>
 

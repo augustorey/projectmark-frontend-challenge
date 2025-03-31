@@ -27,6 +27,7 @@ if (isDev) {
 
 }
 
+//Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Main View
